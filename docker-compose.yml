@@ -1,0 +1,42 @@
+version: '2.2'
+
+services:
+  web:
+    build: ./web
+    image: web
+    container_name: web
+    depends_on:
+      - redis
+      - nginx
+      - mongodb
+    restart: always
+    environment: 
+      - APP_NAME=Webserver
+    expose:
+      - 3000
+  
+  nginx:
+    build: ./nginx
+    image: nginx:1.18.0
+    container_name: nginx
+    restart: always
+    ports:
+      - "80:80"
+
+  redis:
+    container_name: redis
+    build: ./redis
+    image: redis:5.0.9
+    ports:
+      - '6379:6379'
+ 
+  mongodb:
+    image: mongo:4.0.19
+    container_name: mongodb
+    restart: always
+    volumes:
+      - mongo:/data/db
+    ports:
+      - 27017:27017
+volumes:
+  mongo:
