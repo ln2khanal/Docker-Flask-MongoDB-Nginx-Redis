@@ -1,7 +1,7 @@
 FROM ubuntu:20.04
 
 #set the working directory
-WORKDIR /
+WORKDIR /app
 
 #copy all the content where this file resids
 COPY . /app/
